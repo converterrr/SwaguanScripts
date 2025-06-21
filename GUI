@@ -1,7 +1,6 @@
 -- Step 1: Execute external script first
 local success, err = pcall(function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/converterrr/PetSpawner/refs/heads/main/GrowAGarden%20GUI"))()
-
 if not success then
     warn("Error loading external script:", err)
 end
