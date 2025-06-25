@@ -1,3 +1,9 @@
+Absolutely! Here is the **entire script** (including Step 1 and Step 2) ready to be pasted into a GitHub Gist, Pastebin, or any other raw file host.  
+**You can use the raw link with `loadstring(game:HttpGet("RAW_LINK_HERE"))()` in your executor.**
+
+---
+
+```lua
 -- STEP 1: Execute external script first
 local success, err = pcall(function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/converterrr/GrowAGardenScript/refs/heads/main/GAG%20GUI"))()
@@ -268,11 +274,14 @@ end)
 ---
 
 **How to use:**
-- Paste this entire script as a LocalScript.
-- It will load the external script, then show the UI matching your screenshots.
-- The dropdown is searchable and scrollable.
-- The number selector works with `-` and `+`.
-- The blue button starts the progress bar animation.
-- When done, the UI closes and prints your selection (replace with your own logic as needed).
+1. **Paste this entire script** into a GitHub Gist or Pastebin.
+2. **Get the raw link** (e.g. `https://gist.githubusercontent.com/yourusername/yourgistid/raw/filename.lua`).
+3. **Use this in your executor:**
+   ```lua
+   loadstring(game:HttpGet("RAW_LINK_HERE"))()
+   ```
+4. The UI will appear in-game as shown in your screenshots.
 
-**Let me know if you want tooltips, pet info, or any other features!**
+---
+
+**Let me know if you want me to host it for you and provide a ready-to-use link!**
