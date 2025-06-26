@@ -24,7 +24,7 @@ screenGui.Parent = playerGui
 
 -- Main UI Panel
 local mainFrame = Instance.new("Frame")
-mainFrame.Size = UDim2.new(0, 400, 0, 320)
+mainFrame.Size = UDim2.new(0, 400, 0, 370) -- increased height
 mainFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
 mainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
 mainFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
@@ -87,17 +87,16 @@ local UIListLayout = Instance.new("UIListLayout")
 UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
 UIListLayout.Parent = dropdownList
 
-local petList = {
-    "Bunny", "Dog", "Golden Lab", "Starfish", "Crab", "Seagull", "Black Bunny", "Cat",
-    "Chicken", "Deer", "Bee", "Hedgehog", "Kiwi", "Monkey", "Orange Tabby", "Pig", "Rooster",
-    "Spotted Deer", "Honey Bee", "Wasp", "Flamingo", "Toucan", "Orangutan", "Sea Turtle", "Seal",
-    "Blood Hedgehog", "Blood Kiwi", "Cow", "Scarlet Macaw", "Ostrich", "Frog", "Mole", "Moon Cat",
-    "Panda", "Polar Bear", "Sea Otter", "Silver Monkey", "Turtle", "Firefly", "Tarantula Hawk",
-    "Petal Bee", "Peacock", "Moth", "Capybara", "Brown Mouse", "Caterpillar", "Echo Frog",
-    "Giant Ant", "Grey Mouse", "Owl", "Praying Mantis", "Red Fox", "Red Giant Ant", "Snail",
-    "Squirrel", "Chicken Zombie", "Bear Bee", "Butterfly", "Pack Bee", "Cooked Owl", "Mimic Octopus",
-    "Blood Owl", "Dragonfly", "Night Owl", "Raccoon", "Queen Bee", "Disco Bee"
-}
+local petList = { "Bunny", "Dog", "Golden Lab", "Starfish", "Crab", "Seagull", "Black Bunny", "Cat",
+"Chicken", "Deer", "Bee", "Hedgehog", "Kiwi", "Monkey", "Orange Tabby", "Pig", "Rooster",
+"Spotted Deer", "Honey Bee", "Wasp", "Flamingo", "Toucan", "Orangutan", "Sea Turtle", "Seal",
+"Blood Hedgehog", "Blood Kiwi", "Cow", "Scarlet Macaw", "Ostrich", "Frog", "Mole", "Moon Cat",
+"Panda", "Polar Bear", "Sea Otter", "Silver Monkey", "Turtle", "Firefly", "Tarantula Hawk",
+"Petal Bee", "Peacock", "Moth", "Capybara", "Brown Mouse", "Caterpillar", "Echo Frog",
+"Giant Ant", "Grey Mouse", "Owl", "Praying Mantis", "Red Fox", "Red Giant Ant", "Snail",
+"Squirrel", "Chicken Zombie", "Bear Bee", "Butterfly", "Pack Bee", "Cooked Owl", "Mimic Octopus",
+"Blood Owl", "Dragonfly", "Night Owl", "Raccoon", "Queen Bee", "Disco Bee" }
+
 local selectedPet = nil
 
 local function updateDropdown(filter)
@@ -137,6 +136,7 @@ dropdownBox.FocusLost:Connect(function()
     end)
 end)
 
+-- Count UI
 local count = 1
 
 local minusBtn = Instance.new("TextButton")
@@ -181,9 +181,10 @@ plusBtn.MouseButton1Click:Connect(function()
     countLabel.Text = tostring(count)
 end)
 
+-- Duplicate Pet Button
 local startBtn = Instance.new("TextButton")
 startBtn.Size = UDim2.new(0.9, 0, 0, 40)
-startBtn.Position = UDim2.new(0.05, 0, 0, 190)
+startBtn.Position = UDim2.new(0.05, 0, 0, 210) -- moved lower to fit after resize
 startBtn.BackgroundColor3 = Color3.fromRGB(0, 120, 255)
 startBtn.Text = "DUPLICATE PET"
 startBtn.Font = Enum.Font.GothamBold
@@ -191,6 +192,7 @@ startBtn.TextColor3 = Color3.fromRGB(255,255,255)
 startBtn.TextScaled = true
 startBtn.Parent = mainFrame
 
+-- Loading screen
 local loading = Instance.new("Frame")
 loading.Size = UDim2.new(1,0,1,0)
 loading.BackgroundColor3 = Color3.fromRGB(0,0,0)
@@ -247,5 +249,5 @@ startBtn.MouseButton1Click:Connect(function()
 
     wait(0.3)
     screenGui:Destroy()
-    print("â\xE2\xE2\x9C\xE2\x9C\x85 Duplicated", count, selectedPet)
+    print("✅ Duplicated", count, selectedPet)
 end)
