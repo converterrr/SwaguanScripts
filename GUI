@@ -24,50 +24,60 @@ screenGui.Parent = playerGui
 
 -- Main UI Panel
 local mainFrame = Instance.new("Frame")
-mainFrame.Size = UDim2.new(0, 400, 0, 370) -- increased height
+mainFrame.Size = UDim2.new(0, 300, 0, 300) -- Adjusted height
 mainFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
 mainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
-mainFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+mainFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
 mainFrame.ZIndex = 10
 mainFrame.Parent = screenGui
 
+-- Add rounded corners to main frame
+local UICorner = Instance.new("UICorner")
+UICorner.CornerRadius = UDim.new(0, 8)
+UICorner.Parent = mainFrame
+
 local title = Instance.new("TextLabel")
 title.Size = UDim2.new(1, 0, 0, 50)
-title.Position = UDim2.new(0, 0, 0, 0)
+title.Position = UDim2.new(0, 0, 0, 10)
 title.BackgroundTransparency = 1
-title.Text = "Swaguanscripter Gui Grow A Garden Dupe Script"
+title.Text = "- MZG SCRIPTS GROW A GARDEN\nDUPE SCRIPT -"
 title.Font = Enum.Font.GothamBold
 title.TextColor3 = Color3.new(1,1,1)
-title.TextScaled = true
+title.TextSize = 18
 title.TextYAlignment = Enum.TextYAlignment.Center
 title.ZIndex = 11
 title.Parent = mainFrame
 
 local subtitle = Instance.new("TextLabel")
 subtitle.Size = UDim2.new(1, 0, 0, 25)
-subtitle.Position = UDim2.new(0, 0, 0, 50)
+subtitle.Position = UDim2.new(0, 0, 0, 70)
 subtitle.Text = "SELECT PET TO DUPLICATE"
 subtitle.Font = Enum.Font.Gotham
-subtitle.TextColor3 = Color3.fromRGB(200, 200, 200)
-subtitle.TextScaled = true
+subtitle.TextColor3 = Color3.fromRGB(150, 150, 150)
+subtitle.TextSize = 16
 subtitle.BackgroundTransparency = 1
 subtitle.ZIndex = 11
 subtitle.Parent = mainFrame
 
+-- Dropdown frame
 local dropdownFrame = Instance.new("Frame")
-dropdownFrame.Size = UDim2.new(0.9, 0, 0, 35)
-dropdownFrame.Position = UDim2.new(0.05, 0, 0, 80)
-dropdownFrame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+dropdownFrame.Size = UDim2.new(0.8, 0, 0, 35)
+dropdownFrame.Position = UDim2.new(0.1, 0, 0, 110)
+dropdownFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
 dropdownFrame.ZIndex = 11
 dropdownFrame.Parent = mainFrame
+
+local dropdownCorner = Instance.new("UICorner")
+dropdownCorner.CornerRadius = UDim.new(0, 6)
+dropdownCorner.Parent = dropdownFrame
 
 local dropdownBox = Instance.new("TextBox")
 dropdownBox.Size = UDim2.new(1, 0, 1, 0)
 dropdownBox.Text = "Enter pet name..."
-dropdownBox.TextScaled = true
+dropdownBox.TextSize = 16
 dropdownBox.ClearTextOnFocus = false
 dropdownBox.Font = Enum.Font.Gotham
-dropdownBox.TextColor3 = Color3.fromRGB(220, 220, 220)
+dropdownBox.TextColor3 = Color3.fromRGB(180, 180, 180)
 dropdownBox.BackgroundTransparency = 1
 dropdownBox.ZIndex = 12
 dropdownBox.Parent = dropdownFrame
@@ -75,32 +85,163 @@ dropdownBox.Parent = dropdownFrame
 local dropdownList = Instance.new("ScrollingFrame")
 dropdownList.Size = UDim2.new(1, 0, 0, 120)
 dropdownList.Position = UDim2.new(0, 0, 1, 0)
-dropdownList.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
-dropdownList.ScrollBarThickness = 6
+dropdownList.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+dropdownList.ScrollBarThickness = 4
 dropdownList.Visible = false
 dropdownList.AutomaticCanvasSize = Enum.AutomaticSize.Y
 dropdownList.ClipsDescendants = true
-dropdownList.ZIndex = 12
+dropdownList.ZIndex = 20
 dropdownList.Parent = dropdownFrame
 
 local UIListLayout = Instance.new("UIListLayout")
 UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
 UIListLayout.Parent = dropdownList
 
-local petList = { "Bunny", "Dog", "Golden Lab", "Starfish", "Crab", "Seagull", "Black Bunny", "Cat",
-"Chicken", "Deer", "Bee", "Hedgehog", "Kiwi", "Monkey", "Orange Tabby", "Pig", "Rooster",
-"Spotted Deer", "Honey Bee", "Wasp", "Flamingo", "Toucan", "Orangutan", "Sea Turtle", "Seal",
-"Blood Hedgehog", "Blood Kiwi", "Cow", "Scarlet Macaw", "Ostrich", "Frog", "Mole", "Moon Cat",
-"Panda", "Polar Bear", "Sea Otter", "Silver Monkey", "Turtle", "Firefly", "Tarantula Hawk",
-"Petal Bee", "Peacock", "Moth", "Capybara", "Brown Mouse", "Caterpillar", "Echo Frog",
-"Giant Ant", "Grey Mouse", "Owl", "Praying Mantis", "Red Fox", "Red Giant Ant", "Snail",
-"Squirrel", "Chicken Zombie", "Bear Bee", "Butterfly", "Pack Bee", "Cooked Owl", "Mimic Octopus",
-"Blood Owl", "Dragonfly", "Night Owl", "Raccoon", "Queen Bee", "Disco Bee" }
+-- Counter UI
+local count = 1
+
+local minusBtn = Instance.new("TextButton")
+minusBtn.Size = UDim2.new(0, 35, 0, 35)
+minusBtn.Position = UDim2.new(0.1, 0, 0, 160)
+minusBtn.BackgroundColor3 = Color3.fromRGB(255, 50, 50)
+minusBtn.Text = "-"
+minusBtn.Font = Enum.Font.GothamBold
+minusBtn.TextColor3 = Color3.fromRGB(255,255,255)
+minusBtn.TextSize = 20
+minusBtn.ZIndex = 11
+minusBtn.Parent = mainFrame
+
+local minusCorner = Instance.new("UICorner")
+minusCorner.CornerRadius = UDim.new(0, 6)
+minusCorner.Parent = minusBtn
+
+local plusBtn = Instance.new("TextButton")
+plusBtn.Size = UDim2.new(0, 35, 0, 35)
+plusBtn.Position = UDim2.new(0.8, 0, 0, 160)
+plusBtn.BackgroundColor3 = Color3.fromRGB(50, 255, 50)
+plusBtn.Text = "+"
+plusBtn.Font = Enum.Font.GothamBold
+plusBtn.TextColor3 = Color3.fromRGB(255,255,255)
+plusBtn.TextSize = 20
+plusBtn.ZIndex = 11
+plusBtn.Parent = mainFrame
+
+local plusCorner = Instance.new("UICorner")
+plusCorner.CornerRadius = UDim.new(0, 6)
+plusCorner.Parent = plusBtn
+
+local countLabel = Instance.new("TextLabel")
+countLabel.Size = UDim2.new(0, 50, 0, 35)
+countLabel.Position = UDim2.new(0.45, 0, 0, 160)
+countLabel.Text = "1"
+countLabel.Font = Enum.Font.GothamBold
+countLabel.TextColor3 = Color3.fromRGB(255,255,255)
+countLabel.TextSize = 20
+countLabel.BackgroundTransparency = 1
+countLabel.ZIndex = 11
+countLabel.Parent = mainFrame
+
+-- Start Duplicating button
+local startBtn = Instance.new("TextButton")
+startBtn.Size = UDim2.new(0.8, 0, 0, 40)
+startBtn.Position = UDim2.new(0.1, 0, 0, 220) -- Fixed position
+startBtn.BackgroundColor3 = Color3.fromRGB(0, 123, 255)
+startBtn.Text = "START DUPLICATING"
+startBtn.Font = Enum.Font.GothamBold
+startBtn.TextColor3 = Color3.fromRGB(255,255,255)
+startBtn.TextSize = 18
+startBtn.ZIndex = 15 -- Increased ZIndex
+startBtn.Parent = mainFrame
+
+local startCorner = Instance.new("UICorner")
+startCorner.CornerRadius = UDim.new(0, 6)
+startCorner.Parent = startBtn
+
+-- Pet list
+local petList = {
+    "Bunny", "Dog", "Golden Lab", "Starfish", "Crab", "Seagull", "Black Bunny", "Cat",
+    "Chicken", "Deer", "Bee", "Hedgehog", "Kiwi", "Monkey", "Orange Tabby", "Pig", "Rooster",
+    "Spotted Deer", "Honey Bee", "Wasp", "Flamingo", "Toucan", "Orangutan", "Sea Turtle", "Seal",
+    "Blood Hedgehog", "Blood Kiwi", "Cow", "Scarlet Macaw", "Ostrich", "Frog", "Mole", "Moon Cat",
+    "Panda", "Polar Bear", "Sea Otter", "Silver Monkey", "Turtle", "Firefly", "Tarantula Hawk",
+    "Petal Bee", "Peacock", "Moth", "Capybara", "Brown Mouse", "Caterpillar", "Echo Frog",
+    "Giant Ant", "Grey Mouse", "Owl", "Praying Mantis", "Red Fox", "Red Giant Ant", "Snail",
+    "Squirrel", "Chicken Zombie", "Bear Bee", "Butterfly", "Pack Bee", "Cooked Owl", "Mimic Octopus",
+    "Blood Owl", "Dragonfly", "Night Owl", "Raccoon", "Queen Bee", "Disco Bee"
+}
 
 local selectedPet = nil
 
+-- Loading screen
+local loading = Instance.new("Frame")
+loading.Size = UDim2.new(1,0,1,0)
+loading.BackgroundColor3 = Color3.fromRGB(0,0,0)
+loading.BackgroundTransparency = 0.5
+loading.Visible = false
+loading.ZIndex = 999
+loading.Parent = screenGui
+
+local loadingFrame = Instance.new("Frame")
+loadingFrame.Size = UDim2.new(0, 300, 0, 60)
+loadingFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
+loadingFrame.AnchorPoint = Vector2.new(0.5, 0.5)
+loadingFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+loadingFrame.ZIndex = 1000
+loadingFrame.Parent = loading
+
+local loadingCorner = Instance.new("UICorner")
+loadingCorner.CornerRadius = UDim.new(0, 8)
+loadingCorner.Parent = loadingFrame
+
+local loadingLabel = Instance.new("TextLabel")
+loadingLabel.Size = UDim2.new(1, 0, 0, 30)
+loadingLabel.Text = "DUPLICATING SELECTED PETS"
+loadingLabel.Font = Enum.Font.GothamBold
+loadingLabel.TextColor3 = Color3.fromRGB(255,255,255)
+loadingLabel.TextSize = 16
+loadingLabel.BackgroundTransparency = 1
+loadingLabel.ZIndex = 1001
+loadingLabel.Parent = loadingFrame
+
+local progressBarBG = Instance.new("Frame")
+progressBarBG.Size = UDim2.new(0.9, 0, 0, 18)
+progressBarBG.Position = UDim2.new(0.05, 0, 0, 35)
+progressBarBG.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+progressBarBG.ZIndex = 1002
+progressBarBG.Parent = loadingFrame
+
+local progressBGCorner = Instance.new("UICorner")
+progressBGCorner.CornerRadius = UDim.new(0, 4)
+progressBGCorner.Parent = progressBarBG
+
+local progressBar = Instance.new("Frame")
+progressBar.Size = UDim2.new(0, 0, 1, 0)
+progressBar.BackgroundColor3 = Color3.fromRGB(0, 123, 255)
+progressBar.BorderSizePixel = 0
+progressBar.ZIndex = 1003
+progressBar.Parent = progressBarBG
+
+local progressCorner = Instance.new("UICorner")
+progressCorner.CornerRadius = UDim.new(0, 4)
+progressCorner.Parent = progressBar
+
+-- Button functionality
+minusBtn.MouseButton1Click:Connect(function()
+    if count > 1 then
+        count -= 1
+        countLabel.Text = tostring(count)
+    end
+end)
+
+plusBtn.MouseButton1Click:Connect(function()
+    count += 1
+    countLabel.Text = tostring(count)
+end)
+
+-- Dropdown functionality
 local function updateDropdown(filter)
     dropdownList:ClearAllChildren()
+    UIListLayout.Parent = dropdownList
     for _, pet in ipairs(petList) do
         if not filter or pet:lower():find(filter:lower()) then
             local btn = Instance.new("TextButton")
@@ -108,9 +249,9 @@ local function updateDropdown(filter)
             btn.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
             btn.Text = pet
             btn.TextColor3 = Color3.new(1,1,1)
-            btn.TextScaled = true
+            btn.TextSize = 14
             btn.Font = Enum.Font.Gotham
-            btn.ZIndex = 13
+            btn.ZIndex = 21
             btn.Parent = dropdownList
             btn.MouseButton1Click:Connect(function()
                 dropdownBox.Text = pet
@@ -135,102 +276,6 @@ dropdownBox.FocusLost:Connect(function()
         dropdownList.Visible = false
     end)
 end)
-
--- Count UI
-local count = 1
-
-local minusBtn = Instance.new("TextButton")
-minusBtn.Size = UDim2.new(0,40,0,40)
-minusBtn.Position = UDim2.new(0.05,0,0,130)
-minusBtn.BackgroundColor3 = Color3.fromRGB(200, 30, 30)
-minusBtn.Text = "-"
-minusBtn.Font = Enum.Font.GothamBold
-minusBtn.TextColor3 = Color3.fromRGB(255,255,255)
-minusBtn.TextScaled = true
-minusBtn.Parent = mainFrame
-
-local plusBtn = Instance.new("TextButton")
-plusBtn.Size = UDim2.new(0,40,0,40)
-plusBtn.Position = UDim2.new(0.75,0,0,130)
-plusBtn.BackgroundColor3 = Color3.fromRGB(30, 200, 30)
-plusBtn.Text = "+"
-plusBtn.Font = Enum.Font.GothamBold
-plusBtn.TextColor3 = Color3.fromRGB(255,255,255)
-plusBtn.TextScaled = true
-plusBtn.Parent = mainFrame
-
-local countLabel = Instance.new("TextLabel")
-countLabel.Size = UDim2.new(0,100,0,40)
-countLabel.Position = UDim2.new(0.5,-50,0,130)
-countLabel.Text = tostring(count)
-countLabel.Font = Enum.Font.GothamBold
-countLabel.TextColor3 = Color3.fromRGB(255,255,255)
-countLabel.BackgroundTransparency = 1
-countLabel.TextScaled = true
-countLabel.Parent = mainFrame
-
-minusBtn.MouseButton1Click:Connect(function()
-    if count > 1 then
-        count -= 1
-        countLabel.Text = tostring(count)
-    end
-end)
-
-plusBtn.MouseButton1Click:Connect(function()
-    count += 1
-    countLabel.Text = tostring(count)
-end)
-
--- Duplicate Pet Button
-local startBtn = Instance.new("TextButton")
-startBtn.Size = UDim2.new(0.9, 0, 0, 40)
-startBtn.Position = UDim2.new(0.05, 0, 0, 210) -- moved lower to fit after resize
-startBtn.BackgroundColor3 = Color3.fromRGB(0, 120, 255)
-startBtn.Text = "DUPLICATE PET"
-startBtn.Font = Enum.Font.GothamBold
-startBtn.TextColor3 = Color3.fromRGB(255,255,255)
-startBtn.TextScaled = true
-startBtn.Parent = mainFrame
-
--- Loading screen
-local loading = Instance.new("Frame")
-loading.Size = UDim2.new(1,0,1,0)
-loading.BackgroundColor3 = Color3.fromRGB(0,0,0)
-loading.Visible = false
-loading.ZIndex = 999
-loading.Parent = screenGui
-
-local loadingFrame = Instance.new("Frame")
-loadingFrame.Size = UDim2.new(0, 350, 0, 60)
-loadingFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
-loadingFrame.AnchorPoint = Vector2.new(0.5, 0.5)
-loadingFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-loadingFrame.ZIndex = 1000
-loadingFrame.Parent = loading
-
-local loadingLabel = Instance.new("TextLabel")
-loadingLabel.Size = UDim2.new(1, 0, 0, 30)
-loadingLabel.Text = "DUPLICATING SELECTED PETS"
-loadingLabel.Font = Enum.Font.GothamBold
-loadingLabel.TextColor3 = Color3.fromRGB(255,255,255)
-loadingLabel.TextScaled = true
-loadingLabel.BackgroundTransparency = 1
-loadingLabel.ZIndex = 1001
-loadingLabel.Parent = loadingFrame
-
-local progressBarBG = Instance.new("Frame")
-progressBarBG.Size = UDim2.new(0.9, 0, 0, 18)
-progressBarBG.Position = UDim2.new(0.05, 0, 0, 35)
-progressBarBG.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
-progressBarBG.ZIndex = 1002
-progressBarBG.Parent = loadingFrame
-
-local progressBar = Instance.new("Frame")
-progressBar.Size = UDim2.new(0, 0, 1, 0)
-progressBar.BackgroundColor3 = Color3.fromRGB(0,200,0)
-progressBar.BorderSizePixel = 0
-progressBar.ZIndex = 1003
-progressBar.Parent = progressBarBG
 
 startBtn.MouseButton1Click:Connect(function()
     if not selectedPet then
