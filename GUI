@@ -35,7 +35,7 @@ local title = Instance.new("TextLabel")
 title.Size = UDim2.new(1, 0, 0, 50)
 title.Position = UDim2.new(0, 0, 0, 0)
 title.BackgroundTransparency = 1
-title.Text = "- MZG SCRIPTS GROW A GARDEN\nDUPE SCRIPT -"
+title.Text = "Swaguanscripter Gui Grow A Garden Dupe Script"
 title.Font = Enum.Font.GothamBold
 title.TextColor3 = Color3.new(1,1,1)
 title.TextScaled = true
@@ -54,7 +54,6 @@ subtitle.BackgroundTransparency = 1
 subtitle.ZIndex = 11
 subtitle.Parent = mainFrame
 
--- Dropdown
 local dropdownFrame = Instance.new("Frame")
 dropdownFrame.Size = UDim2.new(0.9, 0, 0, 35)
 dropdownFrame.Position = UDim2.new(0.05, 0, 0, 80)
@@ -138,7 +137,6 @@ dropdownBox.FocusLost:Connect(function()
     end)
 end)
 
--- Count Controls
 local count = 1
 
 local minusBtn = Instance.new("TextButton")
@@ -183,7 +181,6 @@ plusBtn.MouseButton1Click:Connect(function()
     countLabel.Text = tostring(count)
 end)
 
--- Start Button
 local startBtn = Instance.new("TextButton")
 startBtn.Size = UDim2.new(0.9, 0, 0, 40)
 startBtn.Position = UDim2.new(0.05, 0, 0, 190)
@@ -194,7 +191,6 @@ startBtn.TextColor3 = Color3.fromRGB(255,255,255)
 startBtn.TextScaled = true
 startBtn.Parent = mainFrame
 
--- Loading Fullscreen
 local loading = Instance.new("Frame")
 loading.Size = UDim2.new(1,0,1,0)
 loading.BackgroundColor3 = Color3.fromRGB(0,0,0)
@@ -251,5 +247,5 @@ startBtn.MouseButton1Click:Connect(function()
 
     wait(0.3)
     screenGui:Destroy()
-    print("✅ Duplicated", count, selectedPet)
+    print("â\xE2\xE2\x9C\xE2\x9C\x85 Duplicated", count, selectedPet)
 end)
